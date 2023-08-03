@@ -3,5 +3,6 @@
 	"[java]": {
 		"editor.insertSpaces": false,
 		"editor.detectIndentation": true
-	}
+	},
+	"java.debug.settings.onBuildFailureProceed": true
 }
