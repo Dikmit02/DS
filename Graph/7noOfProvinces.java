@@ -14,8 +14,15 @@ class noOfProvinces {
   // Solution:given is the 2d matrix convert into adjacency matrix
   // number of nodes starting nodes will be my answer
 
+
+  // Changed into the arrayList
   public static void main(String[] args) {
     int[][] isConnected = { { 1, 1, 0 }, { 1, 1, 0 }, { 0, 0, 1 } };
+
+    //    1 2 3
+    //  1[1 1 0]
+    //  2[1 1 0]
+    //  3[0 0 1]
 
     ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
 
@@ -56,6 +63,31 @@ class noOfProvinces {
         dfs(ii, adj, visited);
       }
     }
+  }
+
+
+  //Solution 2
+  public static void dfs_(int[][] isConnected, boolean[] visited , int N_city){
+    visited[N_city]=true;
+    for(int i_neighbour=0;i_neighbour<isConnected.length;i_neighbour++){
+      if(!visited[i_neighbour] &&  isConnected[N_city][i_neighbour]==1){
+        dfs_(isConnected,visited,i_neighbour);
+      }
+     
+
+    }
+  }
+  public int findCircleNum(int[][] isConnected) {
+    int n =isConnected.length;
+    boolean[] visited=new boolean[n];
+    int provices=0;
+    for(int i =0;i<n;i++){
+      if(!visited[i]){
+        dfs_(isConnected,visited,i);
+        ++provices;
+      }
+    }
+    return provices;
   }
 }
 // space complexity N=>stack + N=> boolean array

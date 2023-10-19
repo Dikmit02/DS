@@ -1,4 +1,6 @@
 package Graph;
+// https://leetcode.com/problems/flood-fill/
+
 
 // An image is represented by an m x n integer grid image where
 // image[i][j] represents the pixel value of the image.
@@ -30,24 +32,29 @@ class FloodFill {
 
   public static int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
     int iniColor = image[sr][sc];
-    int[][] ans = image;
+    if(iniColor == newColor){
+      return image;
+  }
+    // int[][] ans = image;
     int delRow[] = { -1, 0, +1, 0 };
     int delCol[] = { 0, +1, 0, -1 };
-    dfs(sr, sc, ans, image, newColor, delRow, delCol, iniColor);
-    return ans;
+    // dfs(sr, sc, ans, image, newColor, delRow, delCol, iniColor);
+    dfs(sr, sc,  image, newColor, delRow, delCol, iniColor);
+    // return ans; 
+    return image; 
   }
 
   public static void dfs(
     int row,
     int col,
-    int[][] ans,
+    // int[][] ans,
     int[][] image,
     int newColor,
     int delRow[],
     int delCol[],
     int iniColor
   ) {
-    ans[row][col] = newColor;
+    image[row][col] = newColor;
     int n = image.length;
     int m = image[0].length;
     for (int i = 0; i < 4; i++) {
@@ -58,11 +65,69 @@ class FloodFill {
         nrow < n &&
         ncol >= 0 &&
         ncol < m &&
-        image[nrow][ncol] == iniColor &&
-        ans[nrow][ncol] != newColor
+        image[nrow][ncol] == iniColor 
+        // ans[nrow][ncol] != newColor
       ) {
-        dfs(nrow, ncol, ans, image, newColor, delRow, delCol, iniColor);
+        
+        // dfs(nrow, ncol, ans, image, newColor, delRow, delCol, iniColor);
+        dfs(nrow, ncol, image, newColor, delRow, delCol, iniColor);
       }
     }
   }
+
+  // DFS without visited
+  public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+    int target = image[sr][sc];
+    if(target == newColor){
+        return image;
+    }
+    dfs(sr,sc,target,newColor,image);
+    return image;
+}
+private void dfs(int row,int col,int target,int newColor,int[][] image){
+    if(row < image.length && row >= 0 && col < image[0].length && col >= 0 && image[row][col] == target) {
+        image[row][col] = newColor;
+        dfs(row - 1, col, target, newColor, image);
+        dfs(row, col - 1, target, newColor, image);
+        dfs(row + 1, col, target, newColor, image);
+        dfs(row, col + 1, target, newColor, image);
+    }
+}
+
+
+
+// BFS without visited
+public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+  int target = image[sr][sc];image[sr][sc] = newColor;
+  if(target == newColor){
+      return image;
+  }
+
+  final int[][] directions = {{1,0},{0,1},{-1,0},{0,-1}};
+  Queue<int[]> queue = new LinkedList<>();
+  queue.add(new int[]{sr,sc});
+
+  while(!queue.isEmpty()){
+      int[] cur = queue.poll();
+
+      for(int[] dir : directions){
+          int row = cur[0] + dir[1];
+          int col = cur[1] + dir[0];
+
+          if(isVaild(row,col,image,target)){// target must != newColor,so if isVaild(row,col,image,target) is false, means this point is visited.
+              image[row][col] = newColor;
+              queue.add(new int[]{row,col});
+          }
+      }
+  }
+  return image;
+}
+
+private boolean isVaild(int row,int col,int[][] image,int target){
+  if(row >= image.length || row < 0 || col >= image[0].length || col < 0 || image[row][col] != target){
+      return false;
+  }
+  return true;
+}
+
 }

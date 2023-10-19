@@ -20,4 +20,68 @@ class ConnectedComponents {
   //way that they will traverse the entire connected portion of the graph. For example, traversal(1) will traverse only the
   //connected nodes, i.e., nodes 2, 3, and 4, but not the connected components.
 
+  //get connected Components.
+
+  //O(E + V)
+  public static int GCC(){
+    int count = 0;
+    boolean[] vis = new boolean[N];
+    
+    int area = 0;
+    for(int i=0;i<N;i++){
+        if(!vis[i]){
+            count++;
+            area += dfs(i,vis);
+        }
+    }
+
+    return count;
+}
+
+
+// Get All Connected Components
+public static void gcc(ArrayList<Edge>[] graph, int src, boolean[] visited, ArrayList<Integer> comp) {
+  comp.add(src);
+  visited[src] = true;
+  for (Edge e : graph[src]) {
+     if (!visited[e.nbr]) {
+        gcc(graph, e.nbr, visited, comp);
+     }
+  }
+}
+
+
+   
+
+public static void main(String[] args) throws Exception {
+  boolean[] visited = new boolean[vtces];
+  ArrayList<ArrayList<Integer>> comps = new ArrayList<>();
+  for(int v = 0; v < vtces; v++){
+     if(visited[v] == false){
+        ArrayList<Integer> comp = new ArrayList<>();
+        gcc(graph, v, visited, comp);
+      
+        comps.add(comp);
+     }
+  }
+
+  System.out.println(comps.size() == 1);
+}
+
+
+// Is Graph is connected
+public static int GCC(){
+  int count = 0;
+  boolean[] vis = new boolean[N];
+  
+  int area = 0;
+  for(int i=0;i<N;i++){
+      if(!vis[i]){
+          count++;
+          area += dfs(i,vis);
+      }
+  }
+
+  return count==1? true : false;;
+}
 }

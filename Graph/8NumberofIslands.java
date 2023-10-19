@@ -30,6 +30,7 @@ class NumberOfIslands {
     System.out.println(count);
   }
 
+  ///BFS with visited
   public static int numIslands(char[][] grid) {
     // create a visited array
     int n = grid.length;
@@ -85,4 +86,146 @@ class NumberOfIslands {
       this.second = second;
     }
   }
+
+
+  
+}
+
+
+//BFS without visited
+class Solution {
+public static int numIslands(char[][] grid) {
+  // create a visited array
+  int n = grid.length;
+  int m = grid[0].length;
+  int count = 0;
+  int[][] visited = new int[n][m];
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      if (grid[i][j] == '1') {
+        count += 1;
+        bfs(grid, i, j);
+      }
+    }
+  }
+  return count;
+}
+
+public  void bfs(char[][] grid ,int ro, int co) {
+  Queue<Pair> q = new LinkedList<Pair>();
+  Pair p = new Pair(ro, co);
+  q.add(p);
+  grid[ro][co] = '0';
+  while (q.size() > 0) {
+    int row = q.peek().first;
+    int col = q.peek().second;
+    q.remove();
+    
+    int[][] directions = { { -1, 0 }, { 0, -1 }, { 0, 1 }, { 1, 0 } };
+    for (int d = 0; d < directions.length; d++) {
+      int nrow = row + directions[d][0];
+      int ncol = col + directions[d][1];
+      if (
+        nrow >= 0 &&
+        nrow < grid.length &&
+        ncol >= 0 &&
+        ncol < grid[0].length &&
+        grid[nrow][ncol] == '1'
+      ) {
+        Pair temp = new Pair(nrow, ncol);
+        q.add(temp);
+        grid[nrow][ncol] = '0';
+  
+      }
+    }
+  }
+}
+}
+
+//DFS without visited
+class Solution {
+  public int numIslands(char[][] grid) {
+      // create a visited array
+  int n = grid.length;
+  int m = grid[0].length;
+  int count = 0;
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      if (grid[i][j] == '1') {
+        count += 1;
+        DFS(grid, i, j);
+      }
+    }
+  }
+  return count;
+  }
+  
+  
+  public  void DFS(char[][] grid, int x, int y) {
+
+      // base case 1:
+      // out of bound
+      if (x < 0 || y < 0 || x >= grid.length || y >= grid[0].length) {
+          return;
+      }
+      
+      // base case 2:
+      // this is water, so finish this searching and return to parent
+      if (grid[x][y] == '0') {
+          return;
+      }
+      
+      // This is island, so continue
+      // Search in all directions for extending this island
+      // We need to prevent children from searching back to parent,
+      // so make the current one invalid (water, so that it returns as base case 2).
+      grid[x][y] = '0';
+      DFS(grid, x-1, y);
+      DFS(grid, x, y-1);
+      DFS(grid, x+1, y);
+      DFS(grid, x, y+1);
+      
+      // Don't have to make the current grid from 0 back to 1
+      // Because we want to deminish this whole island so that 
+      // further iterations in numIslands will see this whole area as water and skip
+      
+ 
+
+}
+}
+
+//DFS using visited array
+class Solution {
+  public int numIslands(char[][] grid) {
+      // create a visited array
+  int n = grid.length;
+  int m = grid[0].length;
+  boolean[][]visited=new boolean[n][m]
+  int count = 0;
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      if (grid[i][j] == '1' && !visited[i][j]) {
+        count += 1;
+        DFS(grid, i, j,visited);
+      }
+    }
+  }
+  return count;
+  }
+  
+  
+  public  void DFS(char[][] grid, int x, int y, boolean[][]visited) {
+      if (x < 0 || y < 0 || x >= grid.length || y >= grid[0].length) {
+          return;
+      }
+       
+      visited[x][y]=true;
+      DFS(grid, x-1, y,visited);
+      DFS(grid, x, y-1,visited);
+      DFS(grid, x+1, y,visited);
+      DFS(grid, x, y+1,visited);
+      
+ 
+
+}
 }

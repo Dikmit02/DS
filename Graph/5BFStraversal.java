@@ -30,6 +30,21 @@ class BFStraversal {
   //  add the elementd's neighbour list into the queue (if not visited)
   // and mark the visited array on these element as visited
 
+
+// You've kept a visited array, and by looking it up, you decide whether to push a node into the queue or not. 
+// Once visited, you don't push it again. So, how many nodes get pushed into the queue: (of course) V nodes. 
+// And it's complexity is O(V).
+
+// Now, each time, you take out a node from queue and visit all of its neighboring nodes.
+// Now, following this way, for all of V nodes, how many node you'll come across. 
+//Well, it's the number of edges if the graph is unidirectional, or, 2 * number of edges if the graph is bidirectional. 
+//So, the complexity would be O(E) for unidirectional and O(2 * E) for bidirectional.
+
+// So, the ultimate(i.e. total) complexity would be O(V + E) or O(V + 2 * E) or generally, we may say O(v + E).
+
+// Share
+
+
   public ArrayList<Integer> bfs(
     int V,
     ArrayList<ArrayList<Integer>> adjacencyList,
