@@ -1,6 +1,8 @@
 package Graph;
 
 //https://leetcode.com/problems/number-of-enclaves/
+
+// here if any O exitsts on the boundary then run dfs on them so that they can find all the related Os.
 class SurroundedRegions {
 
   public static void main(String[] args) {}
@@ -73,3 +75,8 @@ class SurroundedRegions {
     }
   }
 }
+
+
+// Time Complexity: O(N) + O(M) + O(NxMx4) ~ O(N x M), For the worst case, every element will be marked as ‘O’ in the matrix, and the DFS function will be called for (N x M) nodes and for every node, we are traversing for 4 neighbors, so it will take O(N x M x 4) time. Also, we are running loops for boundary elements so it will take O(N) + O(M).
+
+// Space Complexity ~ O(N x M), O(N x M) for the visited array, and auxiliary stack space takes up N x M locations at max. 

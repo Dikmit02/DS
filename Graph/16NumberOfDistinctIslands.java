@@ -4,6 +4,24 @@ package Graph;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+// in this question, take the src row and src column index index and considering these coordinates as the origin find the index
+// eg            0  1  2  3  4
+// grid[][] = 0{{1, 1, 0, 0, 0},
+//            1 {1, 1, 0, 0, 0},
+//            2 {0, 0, 0, 1, 1}, // coordinates 2,3 will
+//            3 {0, 0, 0, 1, 1}}
+// Output:
+// 1
+// Explanation:
+// grid[][] = {{1, 1, 0, 0, 0}, 
+//             {1, 1, 0, 0, 0}, 
+//             {0, 0, 0, 1, 1}, 
+//             {0, 0, 0, 1, 1}}
+// Same colored islands are equal.
+// We have 2 equal islands, so we 
+// have only 1 distinct island.
+
+
 class NumberOfDistinctIslands {
 
   public static String toString(int number1, int number2) {
